@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.warehouse.mapper.BaStoreMapper">
+    
+    <resultMap type="BaStore" id="BaStoreResult">
+        <result property="id"    column="id"    />
+        <result property="createName"    column="create_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateName"    column="update_name"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="sysOrgCode"    column="sys_org_code"    />
+        <result property="sysCompanyCode"    column="sys_company_code"    />
+        <result property="storeCode"    column="store_code"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="storeText"    column="store_text"    />
+    </resultMap>
+
+    <sql id="selectBaStoreVo">
+        select id, create_name, create_by, create_date, update_name, update_by, update_date, sys_org_code, sys_company_code, store_code, store_name, store_text from ba_store
+    </sql>
+
+    <select id="selectBaStoreList" parameterType="BaStore" resultMap="BaStoreResult">
+        <include refid="selectBaStoreVo"/>
+        <where>  
+            <if test="storeCode != null  and storeCode != ''"> and store_code = #{storeCode}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectBaStoreById" parameterType="Long" resultMap="BaStoreResult">
+        <include refid="selectBaStoreVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBaStore" parameterType="BaStore">
+        insert into ba_store
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createName != null">create_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateName != null">update_name,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="sysOrgCode != null">sys_org_code,</if>
+            <if test="sysCompanyCode != null">sys_company_code,</if>
+            <if test="storeCode != null">store_code,</if>
+            <if test="storeName != null">store_name,</if>
+            <if test="storeText != null">store_text,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createName != null">#{createName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateName != null">#{updateName},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="sysOrgCode != null">#{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">#{sysCompanyCode},</if>
+            <if test="storeCode != null">#{storeCode},</if>
+            <if test="storeName != null">#{storeName},</if>
+            <if test="storeText != null">#{storeText},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBaStore" parameterType="BaStore">
+        update ba_store
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateName != null">update_name = #{updateName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="sysOrgCode != null">sys_org_code = #{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">sys_company_code = #{sysCompanyCode},</if>
+            <if test="storeCode != null">store_code = #{storeCode},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="storeText != null">store_text = #{storeText},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBaStoreById" parameterType="Long">
+        delete from ba_store where id = #{id}
+    </delete>
+
+    <delete id="deleteBaStoreByIds" parameterType="String">
+        delete from ba_store where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
