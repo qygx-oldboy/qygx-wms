@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.basicData.mapper.MdGoodsMapper">
+
+    <resultMap type="MdGoods" id="MdGoodsResult">
+        <result property="id"    column="id"    />
+        <result property="createName"    column="create_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateName"    column="update_name"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="sysOrgCode"    column="sys_org_code"    />
+        <result property="sysCompanyCode"    column="sys_company_code"    />
+        <result property="suoShuKeHu"    column="suo_shu_ke_hu"    />
+        <result property="shpMingCheng"    column="shp_ming_cheng"    />
+        <result property="shpJianCheng"    column="shp_jian_cheng"    />
+        <result property="shpBianMa"    column="shp_bian_ma"    />
+        <result property="shpXingHao"    column="shp_xing_hao"    />
+        <result property="shpGuiGe"    column="shp_gui_ge"    />
+        <result property="shpYanSe"    column="shp_yan_se"    />
+        <result property="chpShuXing"    column="chp_shu_xing"    />
+        <result property="cfWenCeng"    column="cf_wen_ceng"    />
+        <result property="chlKongZhi"    column="chl_kong_zhi"    />
+        <result property="mpDanCeng"    column="mp_dan_ceng"    />
+        <result property="mpCengGao"    column="mp_ceng_gao"    />
+        <result property="jfShpLei"    column="jf_shp_lei"    />
+        <result property="shpPinPai"    column="shp_pin_pai"    />
+        <result property="shpTiaoMa"    column="shp_tiao_ma"    />
+        <result property="ppTuPian"    column="pp_tu_pian"    />
+        <result property="bzhiQi"    column="bzhi_qi"    />
+        <result property="shlDanWei"    column="shl_dan_wei"    />
+        <result property="jshDanWei"    column="jsh_dan_wei"    />
+        <result property="tiJiCm"    column="ti_ji_cm"    />
+        <result property="zhlKg"    column="zhl_kg"    />
+        <result property="chlShl"    column="chl_shl"    />
+        <result property="jtiJiBi"    column="jti_ji_bi"    />
+        <result property="jmZhongBi"    column="jm_zhong_bi"    />
+        <result property="jjZhongBi"    column="jj_zhong_bi"    />
+        <result property="chcDanWei"    column="chc_dan_wei"    />
+        <result property="chDanPin"    column="ch_dan_pin"    />
+        <result property="kuDanPin"    column="ku_dan_pin"    />
+        <result property="gaoDanPin"    column="gao_dan_pin"    />
+        <result property="chZhXiang"    column="ch_zh_xiang"    />
+        <result property="kuZhXiang"    column="ku_zh_xiang"    />
+        <result property="gaoZhXiang"    column="gao_zh_xiang"    />
+        <result property="shpMiaoShu"    column="shp_miao_shu"    />
+        <result property="zhuangTai"    column="zhuang_tai"    />
+        <result property="zhlKgm"    column="zhl_kgm"    />
+        <result property="shpBianMakh"    column="SHP_BIAN_MAKH"    />
+        <result property="jizhunWendu"    column="JIZHUN_WENDU"    />
+        <result property="chpDaLei"    column="chp_da_lei"    />
+        <result property="supId"    column="sup_id"    />
+    </resultMap>
+
+    <sql id="selectMdGoodsVo">
+        select id, create_name, create_by, create_date, update_name, update_by, update_date, sys_org_code, sys_company_code, suo_shu_ke_hu, shp_ming_cheng, shp_jian_cheng, shp_bian_ma, shp_xing_hao, shp_gui_ge, shp_yan_se, chp_shu_xing, cf_wen_ceng, chl_kong_zhi, mp_dan_ceng, mp_ceng_gao, jf_shp_lei, shp_pin_pai, shp_tiao_ma, pp_tu_pian, bzhi_qi, shl_dan_wei, jsh_dan_wei, ti_ji_cm, zhl_kg, chl_shl, jti_ji_bi, jm_zhong_bi, jj_zhong_bi, chc_dan_wei, ch_dan_pin, ku_dan_pin, gao_dan_pin, ch_zh_xiang, ku_zh_xiang, gao_zh_xiang, shp_miao_shu, zhuang_tai, zhl_kgm, SHP_BIAN_MAKH, JIZHUN_WENDU, chp_da_lei, sup_id from md_goods
+    </sql>
+
+    <select id="selectMdGoodsList" parameterType="MdGoods" resultMap="MdGoodsResult">
+        <include refid="selectMdGoodsVo"/>
+        <where>
+            <if test="shpMingCheng != null  and shpMingCheng != ''"> and shp_ming_cheng = #{shpMingCheng}</if>
+            <if test="shpBianMa != null  and shpBianMa != ''"> and shp_bian_ma = #{shpBianMa}</if>
+            <if test="shpGuiGe != null  and shpGuiGe != ''"> and shp_gui_ge = #{shpGuiGe}</if>
+            <if test="chpShuXing != null  and chpShuXing != ''"> and chp_shu_xing = #{chpShuXing}</if>
+            <if test="shpTiaoMa != null  and shpTiaoMa != ''"> and shp_tiao_ma = #{shpTiaoMa}</if>
+        </where>
+    </select>
+
+    <select id="selectMdGoodsById" parameterType="Long" resultMap="MdGoodsResult">
+        <include refid="selectMdGoodsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMdGoods" parameterType="MdGoods">
+        insert into md_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createName != null">create_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateName != null">update_name,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="sysOrgCode != null">sys_org_code,</if>
+            <if test="sysCompanyCode != null">sys_company_code,</if>
+            <if test="suoShuKeHu != null">suo_shu_ke_hu,</if>
+            <if test="shpMingCheng != null">shp_ming_cheng,</if>
+            <if test="shpJianCheng != null">shp_jian_cheng,</if>
+            <if test="shpBianMa != null">shp_bian_ma,</if>
+            <if test="shpXingHao != null">shp_xing_hao,</if>
+            <if test="shpGuiGe != null">shp_gui_ge,</if>
+            <if test="shpYanSe != null">shp_yan_se,</if>
+            <if test="chpShuXing != null">chp_shu_xing,</if>
+            <if test="cfWenCeng != null">cf_wen_ceng,</if>
+            <if test="chlKongZhi != null">chl_kong_zhi,</if>
+            <if test="mpDanCeng != null">mp_dan_ceng,</if>
+            <if test="mpCengGao != null">mp_ceng_gao,</if>
+            <if test="jfShpLei != null">jf_shp_lei,</if>
+            <if test="shpPinPai != null">shp_pin_pai,</if>
+            <if test="shpTiaoMa != null">shp_tiao_ma,</if>
+            <if test="ppTuPian != null">pp_tu_pian,</if>
+            <if test="bzhiQi != null">bzhi_qi,</if>
+            <if test="shlDanWei != null">shl_dan_wei,</if>
+            <if test="jshDanWei != null">jsh_dan_wei,</if>
+            <if test="tiJiCm != null">ti_ji_cm,</if>
+            <if test="zhlKg != null">zhl_kg,</if>
+            <if test="chlShl != null">chl_shl,</if>
+            <if test="jtiJiBi != null">jti_ji_bi,</if>
+            <if test="jmZhongBi != null">jm_zhong_bi,</if>
+            <if test="jjZhongBi != null">jj_zhong_bi,</if>
+            <if test="chcDanWei != null">chc_dan_wei,</if>
+            <if test="chDanPin != null">ch_dan_pin,</if>
+            <if test="kuDanPin != null">ku_dan_pin,</if>
+            <if test="gaoDanPin != null">gao_dan_pin,</if>
+            <if test="chZhXiang != null">ch_zh_xiang,</if>
+            <if test="kuZhXiang != null">ku_zh_xiang,</if>
+            <if test="gaoZhXiang != null">gao_zh_xiang,</if>
+            <if test="shpMiaoShu != null">shp_miao_shu,</if>
+            <if test="zhuangTai != null">zhuang_tai,</if>
+            <if test="zhlKgm != null">zhl_kgm,</if>
+            <if test="shpBianMakh != null">SHP_BIAN_MAKH,</if>
+            <if test="jizhunWendu != null">JIZHUN_WENDU,</if>
+            <if test="chpDaLei != null">chp_da_lei,</if>
+            <if test="supId != null">sup_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createName != null">#{createName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateName != null">#{updateName},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="sysOrgCode != null">#{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">#{sysCompanyCode},</if>
+            <if test="suoShuKeHu != null">#{suoShuKeHu},</if>
+            <if test="shpMingCheng != null">#{shpMingCheng},</if>
+            <if test="shpJianCheng != null">#{shpJianCheng},</if>
+            <if test="shpBianMa != null">#{shpBianMa},</if>
+            <if test="shpXingHao != null">#{shpXingHao},</if>
+            <if test="shpGuiGe != null">#{shpGuiGe},</if>
+            <if test="shpYanSe != null">#{shpYanSe},</if>
+            <if test="chpShuXing != null">#{chpShuXing},</if>
+            <if test="cfWenCeng != null">#{cfWenCeng},</if>
+            <if test="chlKongZhi != null">#{chlKongZhi},</if>
+            <if test="mpDanCeng != null">#{mpDanCeng},</if>
+            <if test="mpCengGao != null">#{mpCengGao},</if>
+            <if test="jfShpLei != null">#{jfShpLei},</if>
+            <if test="shpPinPai != null">#{shpPinPai},</if>
+            <if test="shpTiaoMa != null">#{shpTiaoMa},</if>
+            <if test="ppTuPian != null">#{ppTuPian},</if>
+            <if test="bzhiQi != null">#{bzhiQi},</if>
+            <if test="shlDanWei != null">#{shlDanWei},</if>
+            <if test="jshDanWei != null">#{jshDanWei},</if>
+            <if test="tiJiCm != null">#{tiJiCm},</if>
+            <if test="zhlKg != null">#{zhlKg},</if>
+            <if test="chlShl != null">#{chlShl},</if>
+            <if test="jtiJiBi != null">#{jtiJiBi},</if>
+            <if test="jmZhongBi != null">#{jmZhongBi},</if>
+            <if test="jjZhongBi != null">#{jjZhongBi},</if>
+            <if test="chcDanWei != null">#{chcDanWei},</if>
+            <if test="chDanPin != null">#{chDanPin},</if>
+            <if test="kuDanPin != null">#{kuDanPin},</if>
+            <if test="gaoDanPin != null">#{gaoDanPin},</if>
+            <if test="chZhXiang != null">#{chZhXiang},</if>
+            <if test="kuZhXiang != null">#{kuZhXiang},</if>
+            <if test="gaoZhXiang != null">#{gaoZhXiang},</if>
+            <if test="shpMiaoShu != null">#{shpMiaoShu},</if>
+            <if test="zhuangTai != null">#{zhuangTai},</if>
+            <if test="zhlKgm != null">#{zhlKgm},</if>
+            <if test="shpBianMakh != null">#{shpBianMakh},</if>
+            <if test="jizhunWendu != null">#{jizhunWendu},</if>
+            <if test="chpDaLei != null">#{chpDaLei},</if>
+            <if test="supId != null">#{supId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMdGoods" parameterType="MdGoods">
+        update md_goods
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateName != null">update_name = #{updateName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="sysOrgCode != null">sys_org_code = #{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">sys_company_code = #{sysCompanyCode},</if>
+            <if test="suoShuKeHu != null">suo_shu_ke_hu = #{suoShuKeHu},</if>
+            <if test="shpMingCheng != null">shp_ming_cheng = #{shpMingCheng},</if>
+            <if test="shpJianCheng != null">shp_jian_cheng = #{shpJianCheng},</if>
+            <if test="shpBianMa != null">shp_bian_ma = #{shpBianMa},</if>
+            <if test="shpXingHao != null">shp_xing_hao = #{shpXingHao},</if>
+            <if test="shpGuiGe != null">shp_gui_ge = #{shpGuiGe},</if>
+            <if test="shpYanSe != null">shp_yan_se = #{shpYanSe},</if>
+            <if test="chpShuXing != null">chp_shu_xing = #{chpShuXing},</if>
+            <if test="cfWenCeng != null">cf_wen_ceng = #{cfWenCeng},</if>
+            <if test="chlKongZhi != null">chl_kong_zhi = #{chlKongZhi},</if>
+            <if test="mpDanCeng != null">mp_dan_ceng = #{mpDanCeng},</if>
+            <if test="mpCengGao != null">mp_ceng_gao = #{mpCengGao},</if>
+            <if test="jfShpLei != null">jf_shp_lei = #{jfShpLei},</if>
+            <if test="shpPinPai != null">shp_pin_pai = #{shpPinPai},</if>
+            <if test="shpTiaoMa != null">shp_tiao_ma = #{shpTiaoMa},</if>
+            <if test="ppTuPian != null">pp_tu_pian = #{ppTuPian},</if>
+            <if test="bzhiQi != null">bzhi_qi = #{bzhiQi},</if>
+            <if test="shlDanWei != null">shl_dan_wei = #{shlDanWei},</if>
+            <if test="jshDanWei != null">jsh_dan_wei = #{jshDanWei},</if>
+            <if test="tiJiCm != null">ti_ji_cm = #{tiJiCm},</if>
+            <if test="zhlKg != null">zhl_kg = #{zhlKg},</if>
+            <if test="chlShl != null">chl_shl = #{chlShl},</if>
+            <if test="jtiJiBi != null">jti_ji_bi = #{jtiJiBi},</if>
+            <if test="jmZhongBi != null">jm_zhong_bi = #{jmZhongBi},</if>
+            <if test="jjZhongBi != null">jj_zhong_bi = #{jjZhongBi},</if>
+            <if test="chcDanWei != null">chc_dan_wei = #{chcDanWei},</if>
+            <if test="chDanPin != null">ch_dan_pin = #{chDanPin},</if>
+            <if test="kuDanPin != null">ku_dan_pin = #{kuDanPin},</if>
+            <if test="gaoDanPin != null">gao_dan_pin = #{gaoDanPin},</if>
+            <if test="chZhXiang != null">ch_zh_xiang = #{chZhXiang},</if>
+            <if test="kuZhXiang != null">ku_zh_xiang = #{kuZhXiang},</if>
+            <if test="gaoZhXiang != null">gao_zh_xiang = #{gaoZhXiang},</if>
+            <if test="shpMiaoShu != null">shp_miao_shu = #{shpMiaoShu},</if>
+            <if test="zhuangTai != null">zhuang_tai = #{zhuangTai},</if>
+            <if test="zhlKgm != null">zhl_kgm = #{zhlKgm},</if>
+            <if test="shpBianMakh != null">SHP_BIAN_MAKH = #{shpBianMakh},</if>
+            <if test="jizhunWendu != null">JIZHUN_WENDU = #{jizhunWendu},</if>
+            <if test="chpDaLei != null">chp_da_lei = #{chpDaLei},</if>
+            <if test="supId != null">sup_id = #{supId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdGoodsById" parameterType="Long">
+        delete from md_goods where id = #{id}
+    </delete>
+
+    <delete id="deleteMdGoodsByIds" parameterType="String">
+        delete from md_goods where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

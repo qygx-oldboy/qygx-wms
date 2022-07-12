@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.basicData.mapper.MdSupMapper">
+    
+    <resultMap type="MdSup" id="MdSupResult">
+        <result property="id"    column="id"    />
+        <result property="createName"    column="create_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateName"    column="update_name"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="sysOrgCode"    column="sys_org_code"    />
+        <result property="sysCompanyCode"    column="sys_company_code"    />
+        <result property="zhongWenQch"    column="zhong_wen_qch"    />
+        <result property="zhuJiMa"    column="zhu_ji_ma"    />
+        <result property="gysJianCheng"    column="gys_jian_cheng"    />
+        <result property="gysBianMa"    column="gys_bian_ma"    />
+        <result property="gysYingWen"    column="gys_ying_wen"    />
+        <result property="zengYongQi"    column="zeng_yong_qi"    />
+        <result property="zengYongQiYe"    column="zeng_yong_qi_ye"    />
+        <result property="gysZhuangTai"    column="gys_zhuang_tai"    />
+        <result property="xingYeFenLei"    column="xing_ye_fen_lei"    />
+        <result property="gysDengJi"    column="gys_deng_ji"    />
+        <result property="suoShuXingYe"    column="suo_shu_xing_ye"    />
+        <result property="shouQianRiQi"    column="shou_qian_ri_qi"    />
+        <result property="zhongZhiHeShiJian"    column="zhong_zhi_he_shi_jian"    />
+        <result property="shenQingShiJian"    column="shen_qing_shi_jian"    />
+        <result property="gysShuXing"    column="gys_shu_xing"    />
+        <result property="guiShuZuZh"    column="gui_shu_zu_zh"    />
+        <result property="guiShuSheng"    column="gui_shu_sheng"    />
+        <result property="guiShuShiDai"    column="gui_shu_shi_dai"    />
+        <result property="guiShu"    column="gui_shu"    />
+        <result property="diZhi"    column="di_zhi"    />
+        <result property="youZhengBianMa"    column="you_zheng_bian_ma"    />
+        <result property="zhuLianXiRen"    column="zhu_lian_xi_ren"    />
+        <result property="dianHua"    column="dian_hua"    />
+        <result property="shouJi"    column="shou_ji"    />
+        <result property="chuanZhen"    column="chuan_zhen"    />
+        <result property="emaildiZhi"    column="Emaildi_zhi"    />
+        <result property="wangYeDiZhi"    column="wang_ye_di_zhi"    />
+        <result property="faRenDaiBiao"    column="fa_ren_dai_biao"    />
+        <result property="faRenShenFen"    column="fa_ren_shen_fen"    />
+        <result property="zhuCeZiJin"    column="zhu_ce_zi_jin"    />
+        <result property="biBie"    column="bi_bie"    />
+        <result property="yingYeZhiZhao"    column="ying_ye_zhi_zhao"    />
+        <result property="shuiWuDeng"    column="shui_wu_deng"    />
+        <result property="zuZhiJiGou"    column="zu_zhi_ji_gou"    />
+        <result property="daoLuYunShu"    column="dao_lu_yun_shu"    />
+        <result property="zhuYingYeWu"    column="zhu_ying_ye_wu"    />
+        <result property="heYiXiang"    column="he_yi_xiang"    />
+        <result property="piZhunJiGuan"    column="pi_zhun_ji_guan"    />
+        <result property="piZhunWenHao"    column="pi_zhun_wen_hao"    />
+        <result property="zhuCeRiQi"    column="zhu_ce_ri_qi"    />
+        <result property="beiZhu"    column="bei_zhu"    />
+    </resultMap>
+
+    <sql id="selectMdSupVo">
+        select id, create_name, create_by, create_date, update_name, update_by, update_date, sys_org_code, sys_company_code, zhong_wen_qch, zhu_ji_ma, gys_jian_cheng, gys_bian_ma, gys_ying_wen, zeng_yong_qi, zeng_yong_qi_ye, gys_zhuang_tai, xing_ye_fen_lei, gys_deng_ji, suo_shu_xing_ye, shou_qian_ri_qi, zhong_zhi_he_shi_jian, shen_qing_shi_jian, gys_shu_xing, gui_shu_zu_zh, gui_shu_sheng, gui_shu_shi_dai, gui_shu, di_zhi, you_zheng_bian_ma, zhu_lian_xi_ren, dian_hua, shou_ji, chuan_zhen, Emaildi_zhi, wang_ye_di_zhi, fa_ren_dai_biao, fa_ren_shen_fen, zhu_ce_zi_jin, bi_bie, ying_ye_zhi_zhao, shui_wu_deng, zu_zhi_ji_gou, dao_lu_yun_shu, zhu_ying_ye_wu, he_yi_xiang, pi_zhun_ji_guan, pi_zhun_wen_hao, zhu_ce_ri_qi, bei_zhu from md_sup
+    </sql>
+
+    <select id="selectMdSupList" parameterType="MdSup" resultMap="MdSupResult">
+        <include refid="selectMdSupVo"/>
+        <where>  
+            <if test="zhongWenQch != null  and zhongWenQch != ''"> and zhong_wen_qch = #{zhongWenQch}</if>
+            <if test="gysBianMa != null  and gysBianMa != ''"> and gys_bian_ma = #{gysBianMa}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdSupById" parameterType="Long" resultMap="MdSupResult">
+        <include refid="selectMdSupVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMdSup" parameterType="MdSup" useGeneratedKeys="true" keyProperty="id">
+        insert into md_sup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createName != null">create_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateName != null">update_name,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="sysOrgCode != null">sys_org_code,</if>
+            <if test="sysCompanyCode != null">sys_company_code,</if>
+            <if test="zhongWenQch != null">zhong_wen_qch,</if>
+            <if test="zhuJiMa != null">zhu_ji_ma,</if>
+            <if test="gysJianCheng != null">gys_jian_cheng,</if>
+            <if test="gysBianMa != null">gys_bian_ma,</if>
+            <if test="gysYingWen != null">gys_ying_wen,</if>
+            <if test="zengYongQi != null">zeng_yong_qi,</if>
+            <if test="zengYongQiYe != null">zeng_yong_qi_ye,</if>
+            <if test="gysZhuangTai != null">gys_zhuang_tai,</if>
+            <if test="xingYeFenLei != null">xing_ye_fen_lei,</if>
+            <if test="gysDengJi != null">gys_deng_ji,</if>
+            <if test="suoShuXingYe != null">suo_shu_xing_ye,</if>
+            <if test="shouQianRiQi != null">shou_qian_ri_qi,</if>
+            <if test="zhongZhiHeShiJian != null">zhong_zhi_he_shi_jian,</if>
+            <if test="shenQingShiJian != null">shen_qing_shi_jian,</if>
+            <if test="gysShuXing != null">gys_shu_xing,</if>
+            <if test="guiShuZuZh != null">gui_shu_zu_zh,</if>
+            <if test="guiShuSheng != null">gui_shu_sheng,</if>
+            <if test="guiShuShiDai != null">gui_shu_shi_dai,</if>
+            <if test="guiShu != null">gui_shu,</if>
+            <if test="diZhi != null">di_zhi,</if>
+            <if test="youZhengBianMa != null">you_zheng_bian_ma,</if>
+            <if test="zhuLianXiRen != null">zhu_lian_xi_ren,</if>
+            <if test="dianHua != null">dian_hua,</if>
+            <if test="shouJi != null">shou_ji,</if>
+            <if test="chuanZhen != null">chuan_zhen,</if>
+            <if test="emaildiZhi != null">Emaildi_zhi,</if>
+            <if test="wangYeDiZhi != null">wang_ye_di_zhi,</if>
+            <if test="faRenDaiBiao != null">fa_ren_dai_biao,</if>
+            <if test="faRenShenFen != null">fa_ren_shen_fen,</if>
+            <if test="zhuCeZiJin != null">zhu_ce_zi_jin,</if>
+            <if test="biBie != null">bi_bie,</if>
+            <if test="yingYeZhiZhao != null">ying_ye_zhi_zhao,</if>
+            <if test="shuiWuDeng != null">shui_wu_deng,</if>
+            <if test="zuZhiJiGou != null">zu_zhi_ji_gou,</if>
+            <if test="daoLuYunShu != null">dao_lu_yun_shu,</if>
+            <if test="zhuYingYeWu != null">zhu_ying_ye_wu,</if>
+            <if test="heYiXiang != null">he_yi_xiang,</if>
+            <if test="piZhunJiGuan != null">pi_zhun_ji_guan,</if>
+            <if test="piZhunWenHao != null">pi_zhun_wen_hao,</if>
+            <if test="zhuCeRiQi != null">zhu_ce_ri_qi,</if>
+            <if test="beiZhu != null">bei_zhu,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createName != null">#{createName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateName != null">#{updateName},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="sysOrgCode != null">#{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">#{sysCompanyCode},</if>
+            <if test="zhongWenQch != null">#{zhongWenQch},</if>
+            <if test="zhuJiMa != null">#{zhuJiMa},</if>
+            <if test="gysJianCheng != null">#{gysJianCheng},</if>
+            <if test="gysBianMa != null">#{gysBianMa},</if>
+            <if test="gysYingWen != null">#{gysYingWen},</if>
+            <if test="zengYongQi != null">#{zengYongQi},</if>
+            <if test="zengYongQiYe != null">#{zengYongQiYe},</if>
+            <if test="gysZhuangTai != null">#{gysZhuangTai},</if>
+            <if test="xingYeFenLei != null">#{xingYeFenLei},</if>
+            <if test="gysDengJi != null">#{gysDengJi},</if>
+            <if test="suoShuXingYe != null">#{suoShuXingYe},</if>
+            <if test="shouQianRiQi != null">#{shouQianRiQi},</if>
+            <if test="zhongZhiHeShiJian != null">#{zhongZhiHeShiJian},</if>
+            <if test="shenQingShiJian != null">#{shenQingShiJian},</if>
+            <if test="gysShuXing != null">#{gysShuXing},</if>
+            <if test="guiShuZuZh != null">#{guiShuZuZh},</if>
+            <if test="guiShuSheng != null">#{guiShuSheng},</if>
+            <if test="guiShuShiDai != null">#{guiShuShiDai},</if>
+            <if test="guiShu != null">#{guiShu},</if>
+            <if test="diZhi != null">#{diZhi},</if>
+            <if test="youZhengBianMa != null">#{youZhengBianMa},</if>
+            <if test="zhuLianXiRen != null">#{zhuLianXiRen},</if>
+            <if test="dianHua != null">#{dianHua},</if>
+            <if test="shouJi != null">#{shouJi},</if>
+            <if test="chuanZhen != null">#{chuanZhen},</if>
+            <if test="emaildiZhi != null">#{emaildiZhi},</if>
+            <if test="wangYeDiZhi != null">#{wangYeDiZhi},</if>
+            <if test="faRenDaiBiao != null">#{faRenDaiBiao},</if>
+            <if test="faRenShenFen != null">#{faRenShenFen},</if>
+            <if test="zhuCeZiJin != null">#{zhuCeZiJin},</if>
+            <if test="biBie != null">#{biBie},</if>
+            <if test="yingYeZhiZhao != null">#{yingYeZhiZhao},</if>
+            <if test="shuiWuDeng != null">#{shuiWuDeng},</if>
+            <if test="zuZhiJiGou != null">#{zuZhiJiGou},</if>
+            <if test="daoLuYunShu != null">#{daoLuYunShu},</if>
+            <if test="zhuYingYeWu != null">#{zhuYingYeWu},</if>
+            <if test="heYiXiang != null">#{heYiXiang},</if>
+            <if test="piZhunJiGuan != null">#{piZhunJiGuan},</if>
+            <if test="piZhunWenHao != null">#{piZhunWenHao},</if>
+            <if test="zhuCeRiQi != null">#{zhuCeRiQi},</if>
+            <if test="beiZhu != null">#{beiZhu},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdSup" parameterType="MdSup">
+        update md_sup
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateName != null">update_name = #{updateName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="sysOrgCode != null">sys_org_code = #{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">sys_company_code = #{sysCompanyCode},</if>
+            <if test="zhongWenQch != null">zhong_wen_qch = #{zhongWenQch},</if>
+            <if test="zhuJiMa != null">zhu_ji_ma = #{zhuJiMa},</if>
+            <if test="gysJianCheng != null">gys_jian_cheng = #{gysJianCheng},</if>
+            <if test="gysBianMa != null">gys_bian_ma = #{gysBianMa},</if>
+            <if test="gysYingWen != null">gys_ying_wen = #{gysYingWen},</if>
+            <if test="zengYongQi != null">zeng_yong_qi = #{zengYongQi},</if>
+            <if test="zengYongQiYe != null">zeng_yong_qi_ye = #{zengYongQiYe},</if>
+            <if test="gysZhuangTai != null">gys_zhuang_tai = #{gysZhuangTai},</if>
+            <if test="xingYeFenLei != null">xing_ye_fen_lei = #{xingYeFenLei},</if>
+            <if test="gysDengJi != null">gys_deng_ji = #{gysDengJi},</if>
+            <if test="suoShuXingYe != null">suo_shu_xing_ye = #{suoShuXingYe},</if>
+            <if test="shouQianRiQi != null">shou_qian_ri_qi = #{shouQianRiQi},</if>
+            <if test="zhongZhiHeShiJian != null">zhong_zhi_he_shi_jian = #{zhongZhiHeShiJian},</if>
+            <if test="shenQingShiJian != null">shen_qing_shi_jian = #{shenQingShiJian},</if>
+            <if test="gysShuXing != null">gys_shu_xing = #{gysShuXing},</if>
+            <if test="guiShuZuZh != null">gui_shu_zu_zh = #{guiShuZuZh},</if>
+            <if test="guiShuSheng != null">gui_shu_sheng = #{guiShuSheng},</if>
+            <if test="guiShuShiDai != null">gui_shu_shi_dai = #{guiShuShiDai},</if>
+            <if test="guiShu != null">gui_shu = #{guiShu},</if>
+            <if test="diZhi != null">di_zhi = #{diZhi},</if>
+            <if test="youZhengBianMa != null">you_zheng_bian_ma = #{youZhengBianMa},</if>
+            <if test="zhuLianXiRen != null">zhu_lian_xi_ren = #{zhuLianXiRen},</if>
+            <if test="dianHua != null">dian_hua = #{dianHua},</if>
+            <if test="shouJi != null">shou_ji = #{shouJi},</if>
+            <if test="chuanZhen != null">chuan_zhen = #{chuanZhen},</if>
+            <if test="emaildiZhi != null">Emaildi_zhi = #{emaildiZhi},</if>
+            <if test="wangYeDiZhi != null">wang_ye_di_zhi = #{wangYeDiZhi},</if>
+            <if test="faRenDaiBiao != null">fa_ren_dai_biao = #{faRenDaiBiao},</if>
+            <if test="faRenShenFen != null">fa_ren_shen_fen = #{faRenShenFen},</if>
+            <if test="zhuCeZiJin != null">zhu_ce_zi_jin = #{zhuCeZiJin},</if>
+            <if test="biBie != null">bi_bie = #{biBie},</if>
+            <if test="yingYeZhiZhao != null">ying_ye_zhi_zhao = #{yingYeZhiZhao},</if>
+            <if test="shuiWuDeng != null">shui_wu_deng = #{shuiWuDeng},</if>
+            <if test="zuZhiJiGou != null">zu_zhi_ji_gou = #{zuZhiJiGou},</if>
+            <if test="daoLuYunShu != null">dao_lu_yun_shu = #{daoLuYunShu},</if>
+            <if test="zhuYingYeWu != null">zhu_ying_ye_wu = #{zhuYingYeWu},</if>
+            <if test="heYiXiang != null">he_yi_xiang = #{heYiXiang},</if>
+            <if test="piZhunJiGuan != null">pi_zhun_ji_guan = #{piZhunJiGuan},</if>
+            <if test="piZhunWenHao != null">pi_zhun_wen_hao = #{piZhunWenHao},</if>
+            <if test="zhuCeRiQi != null">zhu_ce_ri_qi = #{zhuCeRiQi},</if>
+            <if test="beiZhu != null">bei_zhu = #{beiZhu},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdSupById" parameterType="Long">
+        delete from md_sup where id = #{id}
+    </delete>
+
+    <delete id="deleteMdSupByIds" parameterType="String">
+        delete from md_sup where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

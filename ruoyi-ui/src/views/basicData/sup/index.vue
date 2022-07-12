@@ -1,13 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form
-      :model="queryParams"
-      ref="queryForm"
-      size="small"
-      :inline="true"
-      v-show="showSearch"
-      label-width="68px"
-    >
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="中文全称" prop="zhongWenQch">
         <el-input
           v-model="queryParams.zhongWenQch"
@@ -16,25 +9,17 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="客户编码" prop="keHuBianMa">
+      <el-form-item label="编码" prop="gysBianMa">
         <el-input
-          v-model="queryParams.keHuBianMa"
-          placeholder="请输入客户编码"
+          v-model="queryParams.gysBianMa"
+          placeholder="请输入供应商编码"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
-        <el-button
-          type="primary"
-          icon="el-icon-search"
-          size="mini"
-          @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
-        >
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -46,9 +31,8 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['basicData:cus:add']"
-          >新增</el-button
-        >
+          v-hasPermi="['basicData:sup:add']"
+        >新增</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -58,9 +42,8 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['basicData:cus:edit']"
-          >修改</el-button
-        >
+          v-hasPermi="['basicData:sup:edit']"
+        >修改</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -70,9 +53,8 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['basicData:cus:remove']"
-          >删除</el-button
-        >
+          v-hasPermi="['basicData:sup:remove']"
+        >删除</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -81,70 +63,55 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['basicData:cus:export']"
-          >导出</el-button
-        >
+          v-hasPermi="['basicData:sup:export']"
+        >导出</el-button>
       </el-col>
-      <right-toolbar
-        :showSearch.sync="showSearch"
-        @queryTable="getList"
-      ></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table
-      v-loading="loading"
-      :data="cusList"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="supList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="中文全称" align="center" prop="zhongWenQch" />
-      <el-table-column label="客户编码" align="center" prop="keHuBianMa" />
+      <el-table-column label="供应商编码" align="center" prop="gysBianMa" />
       <el-table-column label="地址" align="center" prop="diZhi" />
       <el-table-column label="主联系人" align="center" prop="zhuLianXiRen" />
       <el-table-column label="电话" align="center" prop="dianHua" />
       <el-table-column label="手机" align="center" prop="shouJi" />
-      <el-table-column label="传真" align="center" prop="chuanZhen" />
       <el-table-column label="Email地址" align="center" prop="emaildiZhi" />
       <el-table-column label="备注" align="center" prop="beiZhu" />
-      <el-table-column
-        label="操作"
-        align="center"
-        class-name="small-padding fixed-width"
-      >
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['basicData:cus:edit']"
-            >修改</el-button
-          >
+            v-hasPermi="['basicData:sup:edit']"
+          >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['basicData:cus:remove']"
-            >删除</el-button
-          >
+            v-hasPermi="['basicData:sup:remove']"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
+    
     <pagination
-      v-show="total > 0"
+      v-show="total>0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
 
-    <!-- 添加或修改客户信息对话框 -->
+    <!-- 添加或修改供应商对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+         <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
-          <el-col :span="23">
+          <el-col :span="24">
             <el-form-item label="中文全称" prop="zhongWenQch">
               <el-input
                 v-model="form.zhongWenQch"
@@ -154,21 +121,11 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="编码" prop="keHuBianMa">
+          <el-col :span="24">
+            <el-form-item label="编码" prop="gysBianMa">
               <el-input
-                v-model="form.keHuBianMa"
-                placeholder="请输入客户编码"
-                maxlength="30"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="营业执照" prop="yingYeZhiZhao">
-              <el-input
-                v-model="form.yingYeZhiZhao"
-                placeholder="请输入营业执照"
-                maxlength="30"
+                v-model="form.gysBianMa"
+                placeholder="请输入供应商编码"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -187,10 +144,10 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="负责人" prop="zhuLianXiRen">
+            <el-form-item label="主联系人" prop="zhuLianXiRen">
               <el-input
                 v-model="form.zhuLianXiRen"
-                placeholder="请输入负责人"
+                placeholder="请输入主联系人"
                 maxlength="30"
               ></el-input>
             </el-form-item>
@@ -228,7 +185,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-    
         <el-row>
           <el-col :span="24">
             <el-form-item label="备注" prop="beiZhu">
@@ -240,14 +196,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!-- <el-col :span="24">
-            <el-form-item label="上传" prop="field114" required>
-              <el-upload ref="field114" :file-list="field114fileList" :action="field114Action"
-                :before-upload="field114BeforeUpload">
-                <el-button size="small" type="primary" icon="el-icon-upload">点击上传</el-button>
-              </el-upload>
-            </el-form-item>
-          </el-col> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -258,16 +206,10 @@
 </template>
 
 <script>
-import {
-  listCus,
-  getCus,
-  delCus,
-  addCus,
-  updateCus,
-} from "@/api/basicData/cus";
+import { listSup, getSup, delSup, addSup, updateSup } from "@/api/basicData/sup";
 
 export default {
-  name: "Cus",
+  name: "Sup",
   data() {
     return {
       // 遮罩层
@@ -282,8 +224,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 客户信息表格数据
-      cusList: [],
+      // 供应商表格数据
+      supList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -292,75 +234,27 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        createName: null,
-        createDate: null,
-        updateName: null,
-        updateDate: null,
-        sysOrgCode: null,
-        sysCompanyCode: null,
         zhongWenQch: null,
-        zhuJiMa: null,
-        keHuJianCheng: null,
-        keHuBianMa: null,
-        keHuYingWen: null,
-        zengYongQi: null,
-        zengYongQiYe: null,
-        keHuZhuangTai: null,
-        xingYeFenLei: null,
-        keHuDengJi: null,
-        suoShuXingYe: null,
-        shouQianRiQi: null,
-        zhongZhiHeShiJian: null,
-        shenQingShiJian: null,
-        keHuShuXing: null,
-        guiShuZuZh: null,
-        guiShuSheng: null,
-        guiShuShiDai: null,
-        guiShu: null,
-        diZhi: null,
-        youZhengBianMa: null,
-        zhuLianXiRen: null,
-        dianHua: null,
-        shouJi: null,
-        chuanZhen: null,
-        emaildiZhi: null,
-        wangYeDiZhi: null,
-        faRenDaiBiao: null,
-        faRenShenFen: null,
-        zhuCeZiJin: null,
-        biBie: null,
-        yingYeZhiZhao: null,
-        shuiWuDeng: null,
-        zuZhiJiGou: null,
-        daoLuYunShu: null,
-        zhuYingYeWu: null,
-        heYiXiang: null,
-        piZhunJiGuan: null,
-        piZhunWenHao: null,
-        zhuCeRiQi: null,
-        beiZhu: null,
-        zhuLianXiRen1: null,
-        dianHua1: null,
+        gysBianMa: null,
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        zhongWenQch: [
+         zhongWenQch: [
           {
             required: true,
             message: "请输入中文全称",
             trigger: "blur",
           }
         ],
-        keHuBianMa: [
+        gysBianMa: [
           {
             required: true,
-            message: "请输入客户编码",
+            message: "请输入供应商编码",
             trigger: "blur",
           },
         ],
-        yingYeZhiZhao: [],
         diZhi: [
           {
             required: true,
@@ -384,21 +278,20 @@ export default {
           },
         ],
         emaildiZhi: [],
-        beiZhu: [],
+        beiZhu: []
+      
       }
-      // field114Action: 'https://jsonplaceholder.typicode.com/posts/',
-      // field114fileList: []
     };
   },
   created() {
     this.getList();
   },
   methods: {
-    /** 查询客户信息列表 */
+    /** 查询供应商列表 */
     getList() {
       this.loading = true;
-      listCus(this.queryParams).then((response) => {
-        this.cusList = response.rows;
+      listSup(this.queryParams).then(response => {
+        this.supList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -422,19 +315,19 @@ export default {
         sysCompanyCode: null,
         zhongWenQch: null,
         zhuJiMa: null,
-        keHuJianCheng: null,
-        keHuBianMa: null,
-        keHuYingWen: null,
+        gysJianCheng: null,
+        gysBianMa: null,
+        gysYingWen: null,
         zengYongQi: null,
         zengYongQiYe: null,
-        keHuZhuangTai: null,
+        gysZhuangTai: null,
         xingYeFenLei: null,
-        keHuDengJi: null,
+        gysDengJi: null,
         suoShuXingYe: null,
         shouQianRiQi: null,
         zhongZhiHeShiJian: null,
         shenQingShiJian: null,
-        keHuShuXing: null,
+        gysShuXing: null,
         guiShuZuZh: null,
         guiShuSheng: null,
         guiShuShiDai: null,
@@ -460,9 +353,7 @@ export default {
         piZhunJiGuan: null,
         piZhunWenHao: null,
         zhuCeRiQi: null,
-        beiZhu: null,
-        zhuLianXiRen1: null,
-        dianHua1: null,
+        beiZhu: null
       };
       this.resetForm("form");
     },
@@ -478,38 +369,38 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map((item) => item.id);
-      this.single = selection.length !== 1;
-      this.multiple = !selection.length;
+      this.ids = selection.map(item => item.id)
+      this.single = selection.length!==1
+      this.multiple = !selection.length
     },
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加客户信息";
+      this.title = "添加供应商";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const id = row.id || this.ids;
-      getCus(id).then((response) => {
+      const id = row.id || this.ids
+      getSup(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改客户信息";
+        this.title = "修改供应商";
       });
     },
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate((valid) => {
+      this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateCus(this.form).then((response) => {
+            updateSup(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addCus(this.form).then((response) => {
+            addSup(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -521,34 +412,19 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal
-        .confirm('是否确认删除客户信息编号为"' + ids + '"的数据项？')
-        .then(function () {
-          return delCus(ids);
-        })
-        .then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        })
-        .catch(() => {});
+      this.$modal.confirm('是否确认删除供应商编号为"' + ids + '"的数据项？').then(function() {
+        return delSup(ids);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("删除成功");
+      }).catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download(
-        "basicData/cus/export",
-        {
-          ...this.queryParams,
-        },
-        `cus_${new Date().getTime()}.xlsx`
-      );
-    },
-    //  field114BeforeUpload(file) {
-    //   let isRightSize = file.size / 1024 / 1024 < 2
-    //   if (!isRightSize) {
-    //     this.$message.error('文件大小超过 2MB')
-    //   }
-    //   return isRightSize
-    // }
-  },
+      this.download('basicData/sup/export', {
+        ...this.queryParams
+      }, `sup_${new Date().getTime()}.xlsx`)
+    }
+  }
 };
 </script>

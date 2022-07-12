@@ -71,7 +71,6 @@
 
     <el-table v-loading="loading" :data="storeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
       <el-table-column label="仓库代码" align="center" prop="storeCode" />
       <el-table-column label="仓库名称" align="center" prop="storeName" />
       <el-table-column label="仓库属性" align="center" prop="storeText">
@@ -110,34 +109,6 @@
     <!-- 添加或修改仓库定义对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="创建人名称" prop="createName">
-          <el-input v-model="form.createName" placeholder="请输入创建人名称" />
-        </el-form-item>
-        <el-form-item label="创建日期" prop="createDate">
-          <el-date-picker clearable
-            v-model="form.createDate"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择创建日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="更新人名称" prop="updateName">
-          <el-input v-model="form.updateName" placeholder="请输入更新人名称" />
-        </el-form-item>
-        <el-form-item label="更新日期" prop="updateDate">
-          <el-date-picker clearable
-            v-model="form.updateDate"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择更新日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="所属部门" prop="sysOrgCode">
-          <el-input v-model="form.sysOrgCode" placeholder="请输入所属部门" />
-        </el-form-item>
-        <el-form-item label="所属公司" prop="sysCompanyCode">
-          <el-input v-model="form.sysCompanyCode" placeholder="请输入所属公司" />
-        </el-form-item>
         <el-form-item label="仓库代码" prop="storeCode">
           <el-input v-model="form.storeCode" placeholder="请输入仓库代码" />
         </el-form-item>
