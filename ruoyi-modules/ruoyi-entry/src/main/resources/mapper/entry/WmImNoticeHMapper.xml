@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.entry.mapper.WmImNoticeHMapper">
+    
+    <resultMap type="WmImNoticeH" id="WmImNoticeHResult">
+        <result property="id"    column="id"    />
+        <result property="createName"    column="create_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateName"    column="update_name"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="sysOrgCode"    column="sys_org_code"    />
+        <result property="sysCompanyCode"    column="sys_company_code"    />
+        <result property="cusCode"    column="cus_code"    />
+        <result property="imData"    column="im_data"    />
+        <result property="imCusCode"    column="im_cus_code"    />
+        <result property="imCarDri"    column="im_car_dri"    />
+        <result property="imCarMobile"    column="im_car_mobile"    />
+        <result property="imCarNo"    column="im_car_no"    />
+        <result property="orderTypeCode"    column="order_type_code"    />
+        <result property="platformCode"    column="platform_code"    />
+        <result property="imBeizhu"    column="im_beizhu"    />
+        <result property="imSta"    column="im_sta"    />
+        <result property="noticeId"    column="notice_id"    />
+        <result property="fuJian"    column="FU_JIAN"    />
+        <result property="supCode"    column="sup_code"    />
+        <result property="supName"    column="sup_name"    />
+    </resultMap>
+
+    <resultMap id="WmImNoticeHWmImNoticeIResult" type="WmImNoticeH" extends="WmImNoticeHResult">
+        <collection property="wmImNoticeIList" notNullColumn="sub_id" javaType="java.util.List" resultMap="WmImNoticeIResult" />
+    </resultMap>
+
+    <resultMap type="WmImNoticeI" id="WmImNoticeIResult">
+        <result property="id"    column="sub_id"    />
+        <result property="createName"    column="sub_create_name"    />
+        <result property="createBy"    column="sub_create_by"    />
+        <result property="createDate"    column="sub_create_date"    />
+        <result property="updateName"    column="sub_update_name"    />
+        <result property="updateBy"    column="sub_update_by"    />
+        <result property="updateDate"    column="sub_update_date"    />
+        <result property="sysOrgCode"    column="sub_sys_org_code"    />
+        <result property="sysCompanyCode"    column="sub_sys_company_code"    />
+        <result property="imNoticeId"    column="sub_im_notice_id"    />
+        <result property="imNoticeItem"    column="sub_im_notice_item"    />
+        <result property="goodsCode"    column="sub_goods_code"    />
+        <result property="goodsCount"    column="sub_goods_count"    />
+        <result property="goodsPrdData"    column="sub_goods_prd_data"    />
+        <result property="goodsBatch"    column="sub_goods_batch"    />
+        <result property="binPre"    column="sub_bin_pre"    />
+        <result property="goodsFvol"    column="sub_goods_fvol"    />
+        <result property="goodsWeight"    column="sub_goods_weight"    />
+        <result property="binPlan"    column="sub_bin_plan"    />
+        <result property="goodsUnit"    column="sub_goods_unit"    />
+        <result property="goodsWqmCount"    column="sub_goods_wqm_count"    />
+        <result property="goodsQmCount"    column="sub_goods_qm_count"    />
+        <result property="noticeiSta"    column="sub_noticei_sta"    />
+        <result property="baseUnit"    column="sub_base_unit"    />
+        <result property="baseGoodscount"    column="sub_base_goodscount"    />
+        <result property="baseQmcount"    column="sub_base_qmcount"    />
+        <result property="goodsName"    column="sub_goods_name"    />
+        <result property="otherId"    column="sub_other_id"    />
+        <result property="imNoticeHId"    column="sub_im_notice_h_id"    />
+    </resultMap>
+
+    <sql id="selectWmImNoticeHVo">
+        select id, create_name, create_by, create_date, update_name, update_by, update_date, sys_org_code, sys_company_code, cus_code, im_data, im_cus_code, im_car_dri, im_car_mobile, im_car_no, order_type_code, platform_code, im_beizhu, im_sta, notice_id, FU_JIAN, sup_code, sup_name from wm_im_notice_h
+    </sql>
+
+    <select id="selectWmImNoticeHList" parameterType="WmImNoticeH" resultMap="WmImNoticeHResult">
+        <include refid="selectWmImNoticeHVo"/>
+        <where>  
+            <if test="sysOrgCode != null  and sysOrgCode != ''"> and sys_org_code = #{sysOrgCode}</if>
+            <if test="sysCompanyCode != null  and sysCompanyCode != ''"> and sys_company_code = #{sysCompanyCode}</if>
+            <if test="cusCode != null  and cusCode != ''"> and cus_code = #{cusCode}</if>
+            <if test="imData != null "> and im_data = #{imData}</if>
+            <if test="imCusCode != null  and imCusCode != ''"> and im_cus_code = #{imCusCode}</if>
+            <if test="imCarDri != null  and imCarDri != ''"> and im_car_dri = #{imCarDri}</if>
+            <if test="imCarMobile != null  and imCarMobile != ''"> and im_car_mobile = #{imCarMobile}</if>
+            <if test="imCarNo != null  and imCarNo != ''"> and im_car_no = #{imCarNo}</if>
+            <if test="orderTypeCode != null  and orderTypeCode != ''"> and order_type_code = #{orderTypeCode}</if>
+            <if test="platformCode != null  and platformCode != ''"> and platform_code = #{platformCode}</if>
+            <if test="imBeizhu != null  and imBeizhu != ''"> and im_beizhu = #{imBeizhu}</if>
+            <if test="imSta != null  and imSta != ''"> and im_sta = #{imSta}</if>
+            <if test="noticeId != null  and noticeId != ''"> and notice_id = #{noticeId}</if>
+            <if test="fuJian != null  and fuJian != ''"> and FU_JIAN = #{fuJian}</if>
+            <if test="supCode != null  and supCode != ''"> and sup_code = #{supCode}</if>
+            <if test="supName != null  and supName != ''"> and sup_name like concat('%', #{supName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectWmImNoticeHById" parameterType="Long" resultMap="WmImNoticeHWmImNoticeIResult">
+        select a.id, a.create_name, a.create_by, a.create_date, a.update_name, a.update_by, a.update_date, a.sys_org_code, a.sys_company_code, a.cus_code, a.im_data, a.im_cus_code, a.im_car_dri, a.im_car_mobile, a.im_car_no, a.order_type_code, a.platform_code, a.im_beizhu, a.im_sta, a.notice_id, a.FU_JIAN, a.sup_code, a.sup_name,
+ b.id as sub_id, b.create_name as sub_create_name, b.create_by as sub_create_by, b.create_date as sub_create_date, b.update_name as sub_update_name, b.update_by as sub_update_by, b.update_date as sub_update_date, b.sys_org_code as sub_sys_org_code, b.sys_company_code as sub_sys_company_code, b.im_notice_id as sub_im_notice_id, b.im_notice_item as sub_im_notice_item, b.goods_code as sub_goods_code, b.goods_count as sub_goods_count, b.goods_prd_data as sub_goods_prd_data, b.goods_batch as sub_goods_batch, b.bin_pre as sub_bin_pre, b.goods_fvol as sub_goods_fvol, b.goods_weight as sub_goods_weight, b.bin_plan as sub_bin_plan, b.goods_unit as sub_goods_unit, b.goods_wqm_count as sub_goods_wqm_count, b.goods_qm_count as sub_goods_qm_count, b.noticei_sta as sub_noticei_sta, b.base_unit as sub_base_unit, b.base_goodscount as sub_base_goodscount, b.base_qmcount as sub_base_qmcount, b.goods_name as sub_goods_name, b.other_id as sub_other_id, b.im_notice_h_id as sub_im_notice_h_id
+        from wm_im_notice_h a
+        left join wm_im_notice_i b on b.im_notice_h_id = a.id
+        where a.id = #{id}
+    </select>
+        
+    <insert id="insertWmImNoticeH" parameterType="WmImNoticeH" useGeneratedKeys="true" keyProperty="id">
+        insert into wm_im_notice_h
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createName != null">create_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateName != null">update_name,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="sysOrgCode != null">sys_org_code,</if>
+            <if test="sysCompanyCode != null">sys_company_code,</if>
+            <if test="cusCode != null">cus_code,</if>
+            <if test="imData != null">im_data,</if>
+            <if test="imCusCode != null">im_cus_code,</if>
+            <if test="imCarDri != null">im_car_dri,</if>
+            <if test="imCarMobile != null">im_car_mobile,</if>
+            <if test="imCarNo != null">im_car_no,</if>
+            <if test="orderTypeCode != null">order_type_code,</if>
+            <if test="platformCode != null">platform_code,</if>
+            <if test="imBeizhu != null">im_beizhu,</if>
+            <if test="imSta != null">im_sta,</if>
+            <if test="noticeId != null">notice_id,</if>
+            <if test="fuJian != null">FU_JIAN,</if>
+            <if test="supCode != null">sup_code,</if>
+            <if test="supName != null">sup_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createName != null">#{createName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateName != null">#{updateName},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="sysOrgCode != null">#{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">#{sysCompanyCode},</if>
+            <if test="cusCode != null">#{cusCode},</if>
+            <if test="imData != null">#{imData},</if>
+            <if test="imCusCode != null">#{imCusCode},</if>
+            <if test="imCarDri != null">#{imCarDri},</if>
+            <if test="imCarMobile != null">#{imCarMobile},</if>
+            <if test="imCarNo != null">#{imCarNo},</if>
+            <if test="orderTypeCode != null">#{orderTypeCode},</if>
+            <if test="platformCode != null">#{platformCode},</if>
+            <if test="imBeizhu != null">#{imBeizhu},</if>
+            <if test="imSta != null">#{imSta},</if>
+            <if test="noticeId != null">#{noticeId},</if>
+            <if test="fuJian != null">#{fuJian},</if>
+            <if test="supCode != null">#{supCode},</if>
+            <if test="supName != null">#{supName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWmImNoticeH" parameterType="WmImNoticeH">
+        update wm_im_notice_h
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateName != null">update_name = #{updateName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="sysOrgCode != null">sys_org_code = #{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">sys_company_code = #{sysCompanyCode},</if>
+            <if test="cusCode != null">cus_code = #{cusCode},</if>
+            <if test="imData != null">im_data = #{imData},</if>
+            <if test="imCusCode != null">im_cus_code = #{imCusCode},</if>
+            <if test="imCarDri != null">im_car_dri = #{imCarDri},</if>
+            <if test="imCarMobile != null">im_car_mobile = #{imCarMobile},</if>
+            <if test="imCarNo != null">im_car_no = #{imCarNo},</if>
+            <if test="orderTypeCode != null">order_type_code = #{orderTypeCode},</if>
+            <if test="platformCode != null">platform_code = #{platformCode},</if>
+            <if test="imBeizhu != null">im_beizhu = #{imBeizhu},</if>
+            <if test="imSta != null">im_sta = #{imSta},</if>
+            <if test="noticeId != null">notice_id = #{noticeId},</if>
+            <if test="fuJian != null">FU_JIAN = #{fuJian},</if>
+            <if test="supCode != null">sup_code = #{supCode},</if>
+            <if test="supName != null">sup_name = #{supName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWmImNoticeHById" parameterType="Long">
+        delete from wm_im_notice_h where id = #{id}
+    </delete>
+
+    <delete id="deleteWmImNoticeHByIds" parameterType="String">
+        delete from wm_im_notice_h where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deleteWmImNoticeIByImNoticeHIds" parameterType="String">
+        delete from wm_im_notice_i where im_notice_h_id in 
+        <foreach item="imNoticeHId" collection="array" open="(" separator="," close=")">
+            #{imNoticeHId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteWmImNoticeIByImNoticeHId" parameterType="Long">
+        delete from wm_im_notice_i where im_notice_h_id = #{imNoticeHId}
+    </delete>
+
+    <insert id="batchWmImNoticeI">
+        insert into wm_im_notice_i( id, create_name, create_by, create_date, update_name, update_by, update_date, sys_org_code, sys_company_code, im_notice_id, im_notice_item, goods_code, goods_count, goods_prd_data, goods_batch, bin_pre, goods_fvol, goods_weight, bin_plan, goods_unit, goods_wqm_count, goods_qm_count, noticei_sta, base_unit, base_goodscount, base_qmcount, goods_name, other_id, im_notice_h_id) values
+		<foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.createName}, #{item.createBy}, #{item.createDate}, #{item.updateName}, #{item.updateBy}, #{item.updateDate}, #{item.sysOrgCode}, #{item.sysCompanyCode}, #{item.imNoticeId}, #{item.imNoticeItem}, #{item.goodsCode}, #{item.goodsCount}, #{item.goodsPrdData}, #{item.goodsBatch}, #{item.binPre}, #{item.goodsFvol}, #{item.goodsWeight}, #{item.binPlan}, #{item.goodsUnit}, #{item.goodsWqmCount}, #{item.goodsQmCount}, #{item.noticeiSta}, #{item.baseUnit}, #{item.baseGoodscount}, #{item.baseQmcount}, #{item.goodsName}, #{item.otherId}, #{item.imNoticeHId})
+        </foreach>
+    </insert>
+</mapper>

@@ -15,6 +15,7 @@
         <module>ruoyi-file</module>
         <module>ruoyi-basicData</module>
         <module>ruoyi-warehouse</module>
+        <module>ruoyi-entry</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>
