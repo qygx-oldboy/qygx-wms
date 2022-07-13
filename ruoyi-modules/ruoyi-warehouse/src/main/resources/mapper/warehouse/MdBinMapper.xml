@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.warehouse.mapper.MdBinMapper">
+    
+    <resultMap type="MdBin" id="MdBinResult">
+        <result property="id"    column="id"    />
+        <result property="createName"    column="create_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateName"    column="update_name"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="sysOrgCode"    column="sys_org_code"    />
+        <result property="sysCompanyCode"    column="sys_company_code"    />
+        <result property="kuWeiMingCheng"    column="ku_wei_ming_cheng"    />
+        <result property="kuWeiBianMa"    column="ku_wei_bian_ma"    />
+        <result property="kuWeiTiaoMa"    column="ku_wei_tiao_ma"    />
+        <result property="kuWeiLeiXing"    column="ku_wei_lei_xing"    />
+        <result property="kuWeiShuXing"    column="ku_wei_shu_xing"    />
+        <result property="shangJiaCiXu"    column="shang_jia_ci_xu"    />
+        <result property="quHuoCiXu"    column="qu_huo_ci_xu"    />
+        <result property="suoShuKeHu"    column="suo_shu_ke_hu"    />
+        <result property="tiJiDanWei"    column="ti_ji_dan_wei"    />
+        <result property="zhongLiangDanWei"    column="zhong_liang_dan_wei"    />
+        <result property="mianJiDanWei"    column="mian_ji_dan_wei"    />
+        <result property="zuiDaTiJi"    column="zui_da_ti_ji"    />
+        <result property="zuiDaZhongLiang"    column="zui_da_zhong_liang"    />
+        <result property="zuiDaMianJi"    column="zui_da_mian_ji"    />
+        <result property="zuiDaTuoPan"    column="zui_da_tuo_pan"    />
+        <result property="chang"    column="chang"    />
+        <result property="kuan"    column="kuan"    />
+        <result property="gao"    column="gao"    />
+        <result property="tingYong"    column="ting_yong"    />
+        <result property="mingXi"    column="ming_xi"    />
+        <result property="binStore"    column="bin_store"    />
+        <result property="chpShuXing"    column="CHP_SHU_XING"    />
+        <result property="mingXi1"    column="ming_xi1"    />
+        <result property="mingXi2"    column="ming_xi2"    />
+        <result property="mingXi3"    column="ming_xi3"    />
+        <result property="storeId"    column="store_id"    />
+    </resultMap>
+
+    <sql id="selectMdBinVo">
+        select id, create_name, create_by, create_date, update_name, update_by, update_date, sys_org_code, sys_company_code, ku_wei_ming_cheng, ku_wei_bian_ma, ku_wei_tiao_ma, ku_wei_lei_xing, ku_wei_shu_xing, shang_jia_ci_xu, qu_huo_ci_xu, suo_shu_ke_hu, ti_ji_dan_wei, zhong_liang_dan_wei, mian_ji_dan_wei, zui_da_ti_ji, zui_da_zhong_liang, zui_da_mian_ji, zui_da_tuo_pan, chang, kuan, gao, ting_yong, ming_xi, bin_store, CHP_SHU_XING, ming_xi1, ming_xi2, ming_xi3, store_id from md_bin
+    </sql>
+
+    <select id="selectMdBinList" parameterType="MdBin" resultMap="MdBinResult">
+        <include refid="selectMdBinVo"/>
+        <where>  
+            <if test="kuWeiMingCheng != null  and kuWeiMingCheng != ''"> and ku_wei_ming_cheng = #{kuWeiMingCheng}</if>
+            <if test="kuWeiBianMa != null  and kuWeiBianMa != ''"> and ku_wei_bian_ma = #{kuWeiBianMa}</if>
+            <if test="kuWeiLeiXing != null  and kuWeiLeiXing != ''"> and ku_wei_lei_xing = #{kuWeiLeiXing}</if>
+            <if test="tingYong != null  and tingYong != ''"> and ting_yong = #{tingYong}</if>
+            <if test="binStore != null  and binStore != ''"> and bin_store = #{binStore}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdBinById" parameterType="Long" resultMap="MdBinResult">
+        <include refid="selectMdBinVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMdBin" parameterType="MdBin" useGeneratedKeys="true" keyProperty="id">
+        insert into md_bin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createName != null">create_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateName != null">update_name,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="sysOrgCode != null">sys_org_code,</if>
+            <if test="sysCompanyCode != null">sys_company_code,</if>
+            <if test="kuWeiMingCheng != null">ku_wei_ming_cheng,</if>
+            <if test="kuWeiBianMa != null">ku_wei_bian_ma,</if>
+            <if test="kuWeiTiaoMa != null">ku_wei_tiao_ma,</if>
+            <if test="kuWeiLeiXing != null">ku_wei_lei_xing,</if>
+            <if test="kuWeiShuXing != null">ku_wei_shu_xing,</if>
+            <if test="shangJiaCiXu != null">shang_jia_ci_xu,</if>
+            <if test="quHuoCiXu != null">qu_huo_ci_xu,</if>
+            <if test="suoShuKeHu != null">suo_shu_ke_hu,</if>
+            <if test="tiJiDanWei != null">ti_ji_dan_wei,</if>
+            <if test="zhongLiangDanWei != null">zhong_liang_dan_wei,</if>
+            <if test="mianJiDanWei != null">mian_ji_dan_wei,</if>
+            <if test="zuiDaTiJi != null">zui_da_ti_ji,</if>
+            <if test="zuiDaZhongLiang != null">zui_da_zhong_liang,</if>
+            <if test="zuiDaMianJi != null">zui_da_mian_ji,</if>
+            <if test="zuiDaTuoPan != null">zui_da_tuo_pan,</if>
+            <if test="chang != null">chang,</if>
+            <if test="kuan != null">kuan,</if>
+            <if test="gao != null">gao,</if>
+            <if test="tingYong != null">ting_yong,</if>
+            <if test="mingXi != null">ming_xi,</if>
+            <if test="binStore != null">bin_store,</if>
+            <if test="chpShuXing != null">CHP_SHU_XING,</if>
+            <if test="mingXi1 != null">ming_xi1,</if>
+            <if test="mingXi2 != null">ming_xi2,</if>
+            <if test="mingXi3 != null">ming_xi3,</if>
+            <if test="storeId != null">store_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createName != null">#{createName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateName != null">#{updateName},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="sysOrgCode != null">#{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">#{sysCompanyCode},</if>
+            <if test="kuWeiMingCheng != null">#{kuWeiMingCheng},</if>
+            <if test="kuWeiBianMa != null">#{kuWeiBianMa},</if>
+            <if test="kuWeiTiaoMa != null">#{kuWeiTiaoMa},</if>
+            <if test="kuWeiLeiXing != null">#{kuWeiLeiXing},</if>
+            <if test="kuWeiShuXing != null">#{kuWeiShuXing},</if>
+            <if test="shangJiaCiXu != null">#{shangJiaCiXu},</if>
+            <if test="quHuoCiXu != null">#{quHuoCiXu},</if>
+            <if test="suoShuKeHu != null">#{suoShuKeHu},</if>
+            <if test="tiJiDanWei != null">#{tiJiDanWei},</if>
+            <if test="zhongLiangDanWei != null">#{zhongLiangDanWei},</if>
+            <if test="mianJiDanWei != null">#{mianJiDanWei},</if>
+            <if test="zuiDaTiJi != null">#{zuiDaTiJi},</if>
+            <if test="zuiDaZhongLiang != null">#{zuiDaZhongLiang},</if>
+            <if test="zuiDaMianJi != null">#{zuiDaMianJi},</if>
+            <if test="zuiDaTuoPan != null">#{zuiDaTuoPan},</if>
+            <if test="chang != null">#{chang},</if>
+            <if test="kuan != null">#{kuan},</if>
+            <if test="gao != null">#{gao},</if>
+            <if test="tingYong != null">#{tingYong},</if>
+            <if test="mingXi != null">#{mingXi},</if>
+            <if test="binStore != null">#{binStore},</if>
+            <if test="chpShuXing != null">#{chpShuXing},</if>
+            <if test="mingXi1 != null">#{mingXi1},</if>
+            <if test="mingXi2 != null">#{mingXi2},</if>
+            <if test="mingXi3 != null">#{mingXi3},</if>
+            <if test="storeId != null">#{storeId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdBin" parameterType="MdBin">
+        update md_bin
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateName != null">update_name = #{updateName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="sysOrgCode != null">sys_org_code = #{sysOrgCode},</if>
+            <if test="sysCompanyCode != null">sys_company_code = #{sysCompanyCode},</if>
+            <if test="kuWeiMingCheng != null">ku_wei_ming_cheng = #{kuWeiMingCheng},</if>
+            <if test="kuWeiBianMa != null">ku_wei_bian_ma = #{kuWeiBianMa},</if>
+            <if test="kuWeiTiaoMa != null">ku_wei_tiao_ma = #{kuWeiTiaoMa},</if>
+            <if test="kuWeiLeiXing != null">ku_wei_lei_xing = #{kuWeiLeiXing},</if>
+            <if test="kuWeiShuXing != null">ku_wei_shu_xing = #{kuWeiShuXing},</if>
+            <if test="shangJiaCiXu != null">shang_jia_ci_xu = #{shangJiaCiXu},</if>
+            <if test="quHuoCiXu != null">qu_huo_ci_xu = #{quHuoCiXu},</if>
+            <if test="suoShuKeHu != null">suo_shu_ke_hu = #{suoShuKeHu},</if>
+            <if test="tiJiDanWei != null">ti_ji_dan_wei = #{tiJiDanWei},</if>
+            <if test="zhongLiangDanWei != null">zhong_liang_dan_wei = #{zhongLiangDanWei},</if>
+            <if test="mianJiDanWei != null">mian_ji_dan_wei = #{mianJiDanWei},</if>
+            <if test="zuiDaTiJi != null">zui_da_ti_ji = #{zuiDaTiJi},</if>
+            <if test="zuiDaZhongLiang != null">zui_da_zhong_liang = #{zuiDaZhongLiang},</if>
+            <if test="zuiDaMianJi != null">zui_da_mian_ji = #{zuiDaMianJi},</if>
+            <if test="zuiDaTuoPan != null">zui_da_tuo_pan = #{zuiDaTuoPan},</if>
+            <if test="chang != null">chang = #{chang},</if>
+            <if test="kuan != null">kuan = #{kuan},</if>
+            <if test="gao != null">gao = #{gao},</if>
+            <if test="tingYong != null">ting_yong = #{tingYong},</if>
+            <if test="mingXi != null">ming_xi = #{mingXi},</if>
+            <if test="binStore != null">bin_store = #{binStore},</if>
+            <if test="chpShuXing != null">CHP_SHU_XING = #{chpShuXing},</if>
+            <if test="mingXi1 != null">ming_xi1 = #{mingXi1},</if>
+            <if test="mingXi2 != null">ming_xi2 = #{mingXi2},</if>
+            <if test="mingXi3 != null">ming_xi3 = #{mingXi3},</if>
+            <if test="storeId != null">store_id = #{storeId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdBinById" parameterType="Long">
+        delete from md_bin where id = #{id}
+    </delete>
+
+    <delete id="deleteMdBinByIds" parameterType="String">
+        delete from md_bin where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
