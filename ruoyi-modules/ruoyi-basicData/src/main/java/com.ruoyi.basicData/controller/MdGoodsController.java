@@ -1,13 +1,15 @@
 package com.ruoyi.basicData.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 import java.util.List;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.basicData.domain.MdCus;
-import com.ruoyi.basicData.domain.MdSup;
 import com.ruoyi.basicData.service.IMdCusService;
-import com.ruoyi.basicData.service.IMdSupService;
+import com.ruoyi.common.core.utils.barcode.BarcodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -113,4 +115,22 @@ public class MdGoodsController extends BaseController
     {
         return toAjax(mdGoodsService.deleteMdGoodsByIds(ids));
     }
+
+    /**
+     * 生成条形码
+     */
+    @RequiresPermissions("basicData:goods:query")
+    @GetMapping(value = "/getBarCode/{shpBianMa}")
+    public void getBarCode(@PathVariable String shpBianMa,HttpServletResponse response) throws IOException {
+        // 设置响应流信息
+        response.setContentType("image/jpg");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        OutputStream stream = response.getOutputStream();
+        BufferedImage image = BarcodeUtils.insertWords(BarcodeUtils.getBarCode(shpBianMa),shpBianMa);
+        ImageIO.write(image, "jpg", stream);
+    }
+
+
 }

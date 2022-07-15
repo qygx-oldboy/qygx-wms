@@ -42,3 +42,13 @@ export function delGoods(id) {
     method: 'delete'
   })
 }
+
+
+// 查询条形码
+export function getBarCode(shpBianMa) {
+  return request({
+    url: '/basicData/goods/getBarCode/' + shpBianMa,
+    method: 'get',
+    responseType: 'blob'
+  })
+}

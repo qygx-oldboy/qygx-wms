@@ -196,6 +196,7 @@
       <el-table-column label="备注2" align="center" prop="mingXi2" />
       <el-table-column
         label="操作"
+        width="100"
         align="center"
         class-name="small-padding fixed-width"
       >

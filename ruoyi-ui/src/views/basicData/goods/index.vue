@@ -1,6 +1,13 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form
+      :model="queryParams"
+      ref="queryForm"
+      size="small"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
+    >
       <el-form-item label="商品名称" prop="shpMingCheng">
         <el-input
           v-model="queryParams.shpMingCheng"
@@ -18,7 +25,11 @@
         />
       </el-form-item>
       <el-form-item label="产品属性" prop="chpShuXing">
-        <el-select v-model="queryParams.chpShuXing" placeholder="请选择产品属性" clearable>
+        <el-select
+          v-model="queryParams.chpShuXing"
+          placeholder="请选择产品属性"
+          clearable
+        >
           <el-option
             v-for="dict in dict.type.model_product_attribute"
             :key="dict.value"
@@ -36,8 +47,16 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+          >搜索</el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+          >重置</el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -50,7 +69,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['basicData:goods:add']"
-        >新增</el-button>
+          >新增</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -61,7 +81,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['basicData:goods:edit']"
-        >修改</el-button>
+          >修改</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -72,7 +93,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['basicData:goods:remove']"
-        >删除</el-button>
+          >删除</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -82,13 +104,54 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['basicData:goods:export']"
-        >导出</el-button>
+          >导出</el-button
+        >
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
+      ></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="goodsList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="goodsList"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55" align="center" />
+      <el-table-column
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
+        width="200"
+      >
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['basicData:goods:edit']"
+            >修改</el-button
+          >
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-delete"
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['basicData:goods:remove']"
+            >删除</el-button
+          >
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="handlePrintOne(scope.row)"
+            v-hasPermi="['basicData:goods:query']"
+            >打印</el-button
+          >
+        </template>
+      </el-table-column>
       <el-table-column label="所属客户" align="center" prop="suoShuKeHu" />
       <el-table-column label="商品名称" align="center" prop="shpMingCheng" />
       <el-table-column label="商品编码" align="center" prop="shpBianMa" />
@@ -98,55 +161,45 @@
       <!-- <el-table-column label="商品颜色" align="center" prop="shpYanSe" /> -->
       <el-table-column label="产品属性" align="center" prop="chpShuXing">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.model_product_attribute" :value="scope.row.chpShuXing"/>
+          <dict-tag
+            :options="dict.type.model_product_attribute"
+            :value="scope.row.chpShuXing"
+          />
         </template>
       </el-table-column>
       <el-table-column label="商品品牌" align="center" prop="shpPinPai" />
       <el-table-column label="商品条码" align="center" prop="shpTiaoMa" />
       <el-table-column label="产品大类" align="center" prop="chpDaLei">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.model_product_categories" :value="scope.row.chpDaLei"/>
+          <dict-tag
+            :options="dict.type.model_product_categories"
+            :value="scope.row.chpDaLei"
+          />
         </template>
       </el-table-column>
       <el-table-column label="保质期" align="center" prop="bzhiQi" />
-     
+
       <el-table-column label="单位" align="center" prop="shlDanWei">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.model_meterage_unit" :value="scope.row.shlDanWei"/>
+          <dict-tag
+            :options="dict.type.model_meterage_unit"
+            :value="scope.row.shlDanWei"
+          />
         </template>
       </el-table-column>
 
-       <el-table-column label="特征" align="center">
-      <el-table-column label="体积" align="center" prop="tiJiCm" />
-      <el-table-column label="净重" align="center" prop="zhlKg" />
-      <el-table-column label="长整箱" align="center" prop="chZhXiang" />
-      <el-table-column label="宽整箱" align="center" prop="kuZhXiang" />
-      <el-table-column label="高整箱" align="center" prop="gaoZhXiang" />
-      <el-table-column label="毛重" align="center" prop="zhlKgm" />
-       </el-table-column>
-      
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['basicData:goods:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['basicData:goods:remove']"
-          >删除</el-button>
-        </template>
+      <el-table-column label="特征" align="center">
+        <el-table-column label="体积" align="center" prop="tiJiCm" />
+        <el-table-column label="净重" align="center" prop="zhlKg" />
+        <el-table-column label="长整箱" align="center" prop="chZhXiang" />
+        <el-table-column label="宽整箱" align="center" prop="kuZhXiang" />
+        <el-table-column label="高整箱" align="center" prop="gaoZhXiang" />
+        <el-table-column label="毛重" align="center" prop="zhlKgm" />
       </el-table-column>
     </el-table>
-    
+
     <pagination
-      v-show="total>0"
+      v-show="total > 0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
@@ -156,25 +209,30 @@
     <!-- 添加或修改商品信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-       
         <el-row>
-          
-            <el-form-item label="所属货主" prop="supId">
-              <el-select v-model="form.supId" placeholder="请选择所属货主"  :style="{ width: '100%' }">
-                <el-option
-                  v-for="item in supOptions"
-                  :key="item.id"
-                  :label="item.zhongWenQch"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          
+          <el-form-item label="所属货主" prop="supId">
+            <el-select
+              v-model="form.supId"
+              placeholder="请选择所属货主"
+              :style="{ width: '100%' }"
+            >
+              <el-option
+                v-for="item in supOptions"
+                :key="item.id"
+                :label="item.zhongWenQch"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="产品大类" prop="chpDaLei">
-              <el-select v-model="form.chpDaLei" placeholder="请选择产品大类"  :style="{ width: '100%' }">
+              <el-select
+                v-model="form.chpDaLei"
+                placeholder="请选择产品大类"
+                :style="{ width: '100%' }"
+              >
                 <el-option
                   v-for="dict in dict.type.model_product_categories"
                   :key="dict.value"
@@ -186,7 +244,11 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="产品属性" prop="chpShuXing">
-              <el-select v-model="form.chpShuXing" placeholder="请选择产品属性"  :style="{ width: '100%' }">
+              <el-select
+                v-model="form.chpShuXing"
+                placeholder="请选择产品属性"
+                :style="{ width: '100%' }"
+              >
                 <el-option
                   v-for="dict in dict.type.model_product_attribute"
                   :key="dict.value"
@@ -348,15 +410,40 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+    
+    <el-dialog
+      :title="dialogImgTitle"
+      :visible.sync="dialogImgVisible"
+      width="800px"
+      append-to-body
+    >
+    <el-image  style='height: 480px;width:480px' :src="imgsrc"></el-image>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="confirmPrint">打印</el-button>
+        <el-button @click="printCancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listGoods, getGoods, delGoods, addGoods, updateGoods } from "@/api/basicData/goods";
+import {
+  listGoods,
+  getGoods,
+  delGoods,
+  addGoods,
+  updateGoods,
+  getBarCode
+} from "@/api/basicData/goods";
 import { listCus } from "@/api/basicData/cus";
 export default {
   name: "Goods",
-  dicts: ['model_product_categories', 'model_product_attribute', 'sys_yes_no', 'model_meterage_unit'],
+  dicts: [
+    "model_product_categories",
+    "model_product_attribute",
+    "sys_yes_no",
+    "model_meterage_unit",
+  ],
   data() {
     return {
       // 遮罩层
@@ -379,6 +466,12 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      // 条形码标题
+      dialogImgTitle: "",
+      // 是否显示条形码弹出层
+      dialogImgVisible: false,
+      //条形码地址
+      imgsrc: '',
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -405,8 +498,7 @@ export default {
         chZhXiang: undefined,
         kuZhXiang: undefined,
         gaoZhXiang: undefined,
-        bzhiQi: undefined
-
+        bzhiQi: undefined,
       },
       // 表单校验
       rules: {
@@ -455,9 +547,9 @@ export default {
         gaoZhXiang: [],
         bzhiQi: [],
         supId: [
-          { required: true, message: "货主ID不能为空", trigger: "change" }
-        ]
-      }
+          { required: true, message: "货主ID不能为空", trigger: "change" },
+        ],
+      },
     };
   },
   created() {
@@ -467,7 +559,7 @@ export default {
     /** 查询商品信息列表 */
     getList() {
       this.loading = true;
-      listGoods(this.queryParams).then(response => {
+      listGoods(this.queryParams).then((response) => {
         console.info(response);
         this.goodsList = response.rows;
         this.total = response.total;
@@ -477,6 +569,11 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.reset();
+    },
+      // 打印取消按钮
+    printCancel() {
+      this.dialogImgVisible = false;
       this.reset();
     },
     // 表单重置
@@ -529,7 +626,7 @@ export default {
         shpBianMakh: null,
         jizhunWendu: null,
         chpDaLei: null,
-        supId: null
+        supId: null,
       };
       this.resetForm("form");
     },
@@ -552,9 +649,9 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
+      this.ids = selection.map((item) => item.id);
+      this.single = selection.length !== 1;
+      this.multiple = !selection.length;
     },
     /** 新增按钮操作 */
     handleAdd() {
@@ -566,8 +663,8 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const id = row.id || this.ids
-      getGoods(id).then(response => {
+      const id = row.id || this.ids;
+      getGoods(id).then((response) => {
         this.form = response.data;
         this.open = true;
         this.title = "修改商品信息";
@@ -575,16 +672,16 @@ export default {
     },
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate(valid => {
+      this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id != null) {
-            updateGoods(this.form).then(response => {
+            updateGoods(this.form).then((response) => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addGoods(this.form).then(response => {
+            addGoods(this.form).then((response) => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -596,19 +693,59 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除商品信息编号为"' + ids + '"的数据项？').then(function() {
-        return delGoods(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      this.$modal
+        .confirm('是否确认删除商品信息编号为"' + ids + '"的数据项？')
+        .then(function () {
+          return delGoods(ids);
+        })
+        .then(() => {
+          this.getList();
+          this.$modal.msgSuccess("删除成功");
+        })
+        .catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('basicData/goods/export', {
-        ...this.queryParams
-      }, `goods_${new Date().getTime()}.xlsx`)
+      this.download(
+        "basicData/goods/export",
+        {
+          ...this.queryParams,
+        },
+        `goods_${new Date().getTime()}.xlsx`
+      );
+    },
+
+    arrayBufferToBase64 (buffer) {
+      var binary = ''
+      var bytes = new Uint8Array(buffer)
+      var len = bytes.byteLength
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i])
+      }
+      return window.btoa(binary)
+    },
+
+    /** 打印按钮操作 */
+    handlePrintOne(row) {
+      this.reset();
+      const shpBianMa = row.shpBianMa;
+      getBarCode(shpBianMa).then((response) => {
+        //注意看一下response返回的数据格式
+        let url = window.URL.createObjectURL(response);
+        this.imgsrc=url;
+        this.dialogImgVisible = true;
+        this.dialogImgTitle = "商品标签";
+      });
+    },
+
+    /**确认打印 */
+    confirmPrint(){
+
     }
-  }
+
+
+
+  },
 };
 </script>
+
